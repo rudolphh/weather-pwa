@@ -217,24 +217,27 @@
   // TODO add saveSelectedCities function here
   app.saveSelectedCities = function(){
     //var selectedCities = JSON.stringify(app.selectedCities);
-    localforage.setItem('selectedCities', app.selectedCities).then(function () {
-      return localforage.getItem('selectedCities');
-    }).then(function(value){ console.log('cities saved');
-    }).catch(function (err) {
-      console.log(err);
-    });
     //localStorage.selectedCities = selectedCities;
 
     /* Extra Credit: Replace localStorage implementation with localForage
     *
-    * future TODO: use idb-keyval instead of localForage because its
+    * future TODO: use idb-keyval (or just idb) instead because its
     * smaller for our simple purpose of just storing key value pairs
     *
-        idbKeyval.set('selectedCities', selectedCities)
+        idbKeyval.set('selectedCities', app.selectedCities)
           .then(() => console.log('Saved selected cities'))
           .catch(err => console.log('Failed to save selected cities; ', err));
         };
     */
+
+    localforage.setItem('selectedCities', app.selectedCities).then(function () {
+      return localforage.getItem('selectedCities');
+    }).then(function(value){
+      console.log('cities saved');
+    }).catch(function (err) {
+      console.log(err);
+    });
+
   };
 
 
@@ -308,37 +311,37 @@
    * discussion.
    */
   var initialWeatherForecast = {
-    key: '2459115',
-    label: 'New York, NY',
-    created: '2016-07-22T01:00:00Z',
+    key: '2487956',
+    label: 'San Francisco, CA',
+    created: '2017-04-28T07:39:59Z',
     channel: {
       astronomy: {
-        sunrise: "5:43 am",
-        sunset: "8:21 pm"
+        sunrise: "6:18 am",
+        sunset: "7:57 pm"
       },
       item: {
         condition: {
-          text: "Windy",
-          date: "Thu, 21 Jul 2016 09:00 PM EDT",
-          temp: 56,
-          code: 24
+          text: "Clear",
+          date: "Fri, 28 Apr 2017 12:00 AM PDT",
+          temp: 52,
+          code: 31
         },
         forecast: [
-          {code: 44, high: 86, low: 70},
-          {code: 44, high: 94, low: 73},
-          {code: 4, high: 95, low: 78},
-          {code: 24, high: 75, low: 89},
-          {code: 24, high: 89, low: 77},
-          {code: 44, high: 92, low: 79},
-          {code: 44, high: 89, low: 77}
+          {code: 34, high: 66, low: 52},
+          {code: 32, high: 69, low: 56},
+          {code: 32, high: 69, low: 54},
+          {code: 32, high: 71, low: 54},
+          {code: 30, high: 73, low: 57},
+          {code: 34, high: 73, low: 60},
+          {code: 30, high: 67, low: 58}
         ]
       },
       atmosphere: {
-        humidity: 56
+        humidity: 78
       },
       wind: {
-        speed: 25,
-        direction: 195
+        speed: 22,
+        direction: 310
       }
     }
   };
@@ -365,6 +368,7 @@
       if (app.selectedCities) {
         //app.selectedCities = JSON.parse(app.selectedCities);
         app.selectedCities.forEach(function(city) {
+          //console.log(city);
           app.getForecast(city.key, city.label);
         });
       } else {
@@ -388,4 +392,11 @@
 
 
   // TODO add service worker code here
+
+  if ('serviceWorker' in navigator) {
+   navigator.serviceWorker
+            .register('./service-worker.js')
+            .then(function() { console.log('Service Worker Registered'); });
+ }
+ 
 })();
