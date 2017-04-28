@@ -1,12 +1,12 @@
 
 
 // separate cache of data from app shell cache
-var dataCacheName = 'weatherData-v2';
+var dataCacheName = 'weatherData-v3';
 
 /* When the service worker is fired, it should open the caches object
 * and populate it with the assets necessary to load the App Shell. */
 
-var cacheName = 'weatherPWA-step-6-4';
+var cacheName = 'weatherPWA-step-6-5';
 var filesToCache = [
   'index.html',
   'scripts/app.js',
