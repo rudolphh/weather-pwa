@@ -406,7 +406,6 @@
             app.getForecast(key, label);
 
             console.log('first');
-            checkForSavedCities();
             //app.updateForecastCard(results);
           }
         } else {
@@ -428,7 +427,7 @@
        console.log('geolocation is not available');
      }
 
-function checkForSavedCities(){
+
     //app.selectedCities = localStorage.selectedCities
     localforage.getItem('selectedCities').then(function (vals) {
       // we got our value
@@ -456,13 +455,13 @@ function checkForSavedCities(){
 
         // then once we have lat/long, we can query
 
-        if(!app.selectedCities){
-          app.getForecast(initialWeatherForecast.key, initialWeatherForecast.label);
-          app.selectedCities.push({key: initialWeatherForecast.key,
-            label: initialWeatherForecast.label});
-          app.saveSelectedCities();
-          console.log('second');
-        }
+
+        app.getForecast(initialWeatherForecast.key, initialWeatherForecast.label);
+        app.selectedCities.push({key: initialWeatherForecast.key,
+          label: initialWeatherForecast.label});
+        app.saveSelectedCities();
+        console.log('second');
+
 
       }
 
@@ -470,7 +469,7 @@ function checkForSavedCities(){
       // we got an error
       console.log(err);
     });
-}
+
 
 
   // TODO add service worker code here
