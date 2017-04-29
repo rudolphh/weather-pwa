@@ -384,7 +384,7 @@
 
      function locationSuccess(pos) {
        var woeid;
-       var query = 'select woeid from geo.places where text="(' +
+       var query = 'select locality1 from geo.places where text="(' +
             pos.coords.latitude + ',' + pos.coords.longitude + ')" limit 1';
        var url = 'https://query.yahooapis.com/v1/public/yql?q=' +
             encodeURIComponent(query) + '&amp;format=json';
@@ -393,13 +393,8 @@
       request.onreadystatechange = function() {
         if (request.readyState === XMLHttpRequest.DONE) {
           if (request.status === 200) {
-            console.log(request.response);
-            var response = JSON.parse(request.response);
-            var results = response.query.results;
-            results.key = key;
-            results.label = label;
-            results.created = response.query.created;
-            app.updateForecastCard(results);
+            woeid = request.query.results.place.locality1.woeid;
+            console.log(woeid);
           }
         } else {
           // Return the initial weather forecast since no data is available.
