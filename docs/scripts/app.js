@@ -381,7 +381,7 @@
      *   Instead, check out IDB (https://www.npmjs.com/package/idb) or
      *   SimpleDB (https://gist.github.com/inexorabletash/c8069c042b734519680c)
      ************************************************************************/
-     var locationObj = {};
+
      function locationSuccess(pos) {
 
        var statement = 'select * FROM geo.places WHERE text="('
@@ -397,14 +397,14 @@
             //console.log(request.response);
             var response = JSON.parse(request.response);
             var results = response.query.results;
-            console.log(results);
             var key = results.place.locality1.woeid;
             var label = results.place.locality1.content + ', ';
-            label += results.place.admin1.code;
 
-            locationObj.key = key;
-            locationObj.label = label;
-
+            app.getForecast(key, label);
+            app.selectedCities = [
+              {key: key, label: label}
+            ];
+            app.saveSelectedCities();
             //app.updateForecastCard(results);
           }
         } else {
@@ -417,7 +417,16 @@
        request.send();
      }
 
-
+     if ("geolocation" in navigator) {
+       /* geolocation is available */
+       navigator.geolocation.getCurrentPosition(function(position) {
+         locationSuccess(position);
+         //console.log(position.coords.latitude + ' ' + position.coords.longitude);
+       });
+     } else {
+       /* geolocation IS NOT available */
+       console.log('geolocation is not available');
+     }
 
     //app.selectedCities = localStorage.selectedCities
     localforage.getItem('selectedCities').then(function (vals) {
@@ -445,29 +454,12 @@
         // if they don't, lets get lat and long using just ip
 
         // then once we have lat/long, we can query
-        if ("geolocation" in navigator) {
-          /* geolocation is available */
-          navigator.geolocation.getCurrentPosition(function(position) {
-            locationSuccess(position);
-            //console.log(position.coords.latitude + ' ' + position.coords.longitude);
-          });
-        } else {
-          /* geolocation IS NOT available */
-          console.log('geolocation is not available');
-        }
 
-        if(Object.keys(locationObj).length === 0){
-          app.getForecast(initialWeatherForecast.key, initialWeatherForecast.label);
-          app.selectedCities = [
-            {key: initialWeatherForecast.key, label: initialWeatherForecast.label}
-          ];
-        }
-        else {
-          app.getForecast(locationObj.key, locationObj.label);
-          app.selectedCities = [
-            {key: locationObj.key, label: locationObj.label}
-          ];
-        }
+
+        app.getForecast(initialWeatherForecast.key, initialWeatherForecast.label);
+        app.selectedCities = [
+          {key: initialWeatherForecast.key, label: initialWeatherForecast.label}
+        ];
         app.saveSelectedCities();
       }
 
