@@ -381,12 +381,11 @@
      *   Instead, check out IDB (https://www.npmjs.com/package/idb) or
      *   SimpleDB (https://gist.github.com/inexorabletash/c8069c042b734519680c)
      ************************************************************************/
-
+     var locationObj = {};
      function locationSuccess(pos) {
-       var woeid;
-       var statement = 'select * from weather.forecast where woeid in ';
-       statement += '(SELECT woeid FROM geo.places WHERE text="(';
-       statement += pos.coords.latitude + ', ' + pos.coords.longitude + ')")';
+
+       var statement = 'select * FROM geo.places WHERE text="('
+       statement += pos.coords.latitude + ', ' + pos.coords.longitude + ')"';
 
        var url = 'https://query.yahooapis.com/v1/public/yql?format=json&q=' +
            statement;
@@ -397,12 +396,15 @@
           if (request.status === 200) {
             //console.log(request.response);
             var response = JSON.parse(request.response);
-            var results = response.query;
-            console.log(results);
-            results.key = key;
-            results.label = label;
-            results.created = response.query.created;
-            app.updateForecastCard(results);
+            var results = response.query.results;
+            var key = results.locality1.woeid;
+            var label = results.locality1.content + ', ';
+            label += results.admin1.code;
+
+            locationObj.key = key;
+            locationObj.label = label;
+
+            //app.updateForecastCard(results);
           }
         } else {
           // Return the initial weather forecast since no data is available.
@@ -452,11 +454,18 @@
 
         // then once we have lat/long, we can query
 
-
-        app.getForecast(initialWeatherForecast.key, initialWeatherForecast.label);
-        app.selectedCities = [
-          {key: initialWeatherForecast.key, label: initialWeatherForecast.label}
-        ];
+        if(Object.keys(locationObj).length === 0){
+          app.getForecast(initialWeatherForecast.key, initialWeatherForecast.label);
+          app.selectedCities = [
+            {key: initialWeatherForecast.key, label: initialWeatherForecast.label}
+          ];
+        }
+        else {
+          app.getForecast(locationObj.key, locationObj.label);
+          app.selectedCities = [
+            {key: locationObj.key, label: locationObj.label}
+          ];
+        }
         app.saveSelectedCities();
       }
 
