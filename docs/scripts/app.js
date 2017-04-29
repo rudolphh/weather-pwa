@@ -399,10 +399,12 @@
             var results = response.query.results;
             var key = results.place.locality1.woeid;
             var label = results.place.locality1.content + ', ';
+            label += results.place.admin1.code;
 
-            app.getForecast(key, label);
             app.selectedCities.push({key: key, label: label});
             app.saveSelectedCities();
+            app.getForecast(key, label);
+
             console.log('first');
             checkForSavedCities();
             //app.updateForecastCard(results);
