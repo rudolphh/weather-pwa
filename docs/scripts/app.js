@@ -400,6 +400,25 @@
          */
 
         //app.updateForecastCard(initialWeatherForecast);
+        // forget using fake data, lets just use the fake datas woeid (key)
+        // and label to get an updated forecast instead.
+
+        // TODO get the user's geolocation if they allow
+
+        // if they don't, lets get lat and long using just ip
+
+        // then once we have lat/long, we can query
+
+        if ("geolocation" in navigator) {
+          /* geolocation is available */
+          navigator.geolocation.getCurrentPosition(function(position) {
+            console.log(position.coords.latitude + ' ' + position.coords.longitude);
+          });
+        } else {
+          /* geolocation IS NOT available */
+          console.log('geolocation is not available');
+        }
+
         app.getForecast(initialWeatherForecast.key, initialWeatherForecast.label);
         app.selectedCities = [
           {key: initialWeatherForecast.key, label: initialWeatherForecast.label}
