@@ -408,10 +408,7 @@
             console.log('first');
             //app.updateForecastCard(results);
           }
-        } else {
-          // Return the initial weather forecast since no data is available.
-          app.updateForecastCard(initialWeatherForecast);
-        }
+        } 
       };
 
        request.open('GET', url);
@@ -425,51 +422,50 @@
      } else {
        /* geolocation IS NOT available */
        console.log('geolocation is not available');
-       //app.selectedCities = localStorage.selectedCities
-       localforage.getItem('selectedCities').then(function (vals) {
-         // we got our value
-         app.selectedCities = vals;
-         if (app.selectedCities) {
-           //app.selectedCities = JSON.parse(app.selectedCities);
-           app.selectedCities.forEach(function(city) {
-             //console.log(city);
-             app.getForecast(city.key, city.label);
-           });
-         } else {
-           /* The user is using the app for the first time, or the user has not
-            * saved any cities, so show the user some fake data. A real app in this
-            * scenario could guess the user's location via IP lookup and then inject
-            * that data into the page.
-            */
-
-           //app.updateForecastCard(initialWeatherForecast);
-           // forget using fake data, lets just use the fake datas woeid (key)
-           // and label to get an updated forecast instead.
-
-           // TODO get the user's geolocation if they allow
-
-           // if they don't, lets get lat and long using just ip
-
-           // then once we have lat/long, we can query
-
-
-           app.getForecast(initialWeatherForecast.key, initialWeatherForecast.label);
-           app.selectedCities.push({key: initialWeatherForecast.key,
-             label: initialWeatherForecast.label});
-           app.saveSelectedCities();
-           console.log('second');
-
-
-         }
-
-       }).catch(function (err) {
-         // we got an error
-         console.log(err);
-       });
      }
 
 
+    //app.selectedCities = localStorage.selectedCities
+    localforage.getItem('selectedCities').then(function (vals) {
+      // we got our value
+      app.selectedCities = vals;
+      if (app.selectedCities) {
+        //app.selectedCities = JSON.parse(app.selectedCities);
+        app.selectedCities.forEach(function(city) {
+          //console.log(city);
+          app.getForecast(city.key, city.label);
+        });
+      } else {
+        /* The user is using the app for the first time, or the user has not
+         * saved any cities, so show the user some fake data. A real app in this
+         * scenario could guess the user's location via IP lookup and then inject
+         * that data into the page.
+         */
 
+        //app.updateForecastCard(initialWeatherForecast);
+        // forget using fake data, lets just use the fake datas woeid (key)
+        // and label to get an updated forecast instead.
+
+        // TODO get the user's geolocation if they allow
+
+        // if they don't, lets get lat and long using just ip
+
+        // then once we have lat/long, we can query
+
+
+        app.getForecast(initialWeatherForecast.key, initialWeatherForecast.label);
+        app.selectedCities.push({key: initialWeatherForecast.key,
+          label: initialWeatherForecast.label});
+        app.saveSelectedCities();
+        console.log('second');
+
+
+      }
+
+    }).catch(function (err) {
+      // we got an error
+      console.log(err);
+    });
 
 
 
