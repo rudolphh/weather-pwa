@@ -406,9 +406,13 @@
             app.getForecast(key, label);
 
             console.log('first');
+
             //app.updateForecastCard(results);
           }
-        } 
+        } else {
+          // Return the initial weather forecast since no data is available.
+          app.updateForecastCard(initialWeatherForecast);
+        }
       };
 
        request.open('GET', url);
