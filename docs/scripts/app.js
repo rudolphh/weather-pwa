@@ -397,6 +397,7 @@
             //console.log(request.response);
             var response = JSON.parse(request.response);
             var results = response.query.results;
+            console.log(results);
             var key = results.locality1.woeid;
             var label = results.locality1.content + ', ';
             label += results.admin1.code;
