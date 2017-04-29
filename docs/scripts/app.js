@@ -456,9 +456,8 @@ function checkForSavedCities(){
 
         // then once we have lat/long, we can query
 
-
-        app.getForecast(initialWeatherForecast.key, initialWeatherForecast.label);
-        if(app.selectedCities.length === 0){
+        if(!app.selectedCities){
+          app.getForecast(initialWeatherForecast.key, initialWeatherForecast.label);
           app.selectedCities.push({key: initialWeatherForecast.key,
             label: initialWeatherForecast.label});
           app.saveSelectedCities();
