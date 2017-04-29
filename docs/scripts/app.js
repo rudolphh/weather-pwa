@@ -398,9 +398,9 @@
             var response = JSON.parse(request.response);
             var results = response.query.results;
             console.log(results);
-            var key = results.locality1.woeid;
-            var label = results.locality1.content + ', ';
-            label += results.admin1.code;
+            var key = results.place.locality1.woeid;
+            var label = results.place.locality1.content + ', ';
+            label += results.place.admin1.code;
 
             locationObj.key = key;
             locationObj.label = label;
