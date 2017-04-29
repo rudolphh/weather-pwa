@@ -382,6 +382,17 @@
      *   SimpleDB (https://gist.github.com/inexorabletash/c8069c042b734519680c)
      ************************************************************************/
 
+     
+     if ("geolocation" in navigator) {
+       /* geolocation is available */
+       navigator.geolocation.getCurrentPosition(function(position) {
+         console.log(position.coords.latitude + ' ' + position.coords.longitude);
+       });
+     } else {
+       /* geolocation IS NOT available */
+       console.log('geolocation is not available');
+     }
+
     //app.selectedCities = localStorage.selectedCities
     localforage.getItem('selectedCities').then(function (vals) {
       // we got our value
@@ -409,15 +420,6 @@
 
         // then once we have lat/long, we can query
 
-        if ("geolocation" in navigator) {
-          /* geolocation is available */
-          navigator.geolocation.getCurrentPosition(function(position) {
-            console.log(position.coords.latitude + ' ' + position.coords.longitude);
-          });
-        } else {
-          /* geolocation IS NOT available */
-          console.log('geolocation is not available');
-        }
 
         app.getForecast(initialWeatherForecast.key, initialWeatherForecast.label);
         app.selectedCities = [
