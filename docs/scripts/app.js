@@ -406,6 +406,7 @@
             ];
             app.saveSelectedCities();
             console.log('first');
+            checkForSavedCities();
             //app.updateForecastCard(results);
           }
         } else {
@@ -427,6 +428,7 @@
        console.log('geolocation is not available');
      }
 
+function checkForSavedCities(){
     //app.selectedCities = localStorage.selectedCities
     localforage.getItem('selectedCities').then(function (vals) {
       // we got our value
@@ -468,7 +470,7 @@
       // we got an error
       console.log(err);
     });
-
+}
 
 
   // TODO add service worker code here
