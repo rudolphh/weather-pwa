@@ -401,9 +401,7 @@
             var label = results.place.locality1.content + ', ';
 
             app.getForecast(key, label);
-            app.selectedCities = [
-              {key: key, label: label}
-            ];
+            app.selectedCities.push({key: key, label: label});
             app.saveSelectedCities();
             console.log('first');
             checkForSavedCities();
