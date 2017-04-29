@@ -382,11 +382,28 @@
      *   SimpleDB (https://gist.github.com/inexorabletash/c8069c042b734519680c)
      ************************************************************************/
 
-     
+     function locationSuccess(pos) {
+       var woeid;
+       var query = 'select woeid from geo.places where text="(' +
+            pos.coords.latitude + ',' + pos.coords.longitude + ')" limit 1';
+       var url = 'https://query.yahooapis.com/v1/public/yql?q=' +
+            encodeURIComponent(query) + '&amp;format=json';
+       var xhr = new XMLHttpRequest();
+       xhr.onload = function () {
+         var json = JSON.parse(this.responseText);
+         console.log(json.query.results);
+         woeid = json.query.results.place.woeid;
+         //getWeather(woeid);
+       };
+       xhr.open('GET', url);
+       xhr.send();
+     }
+
      if ("geolocation" in navigator) {
        /* geolocation is available */
        navigator.geolocation.getCurrentPosition(function(position) {
-         console.log(position.coords.latitude + ' ' + position.coords.longitude);
+         locationSuccess(position);
+         //console.log(position.coords.latitude + ' ' + position.coords.longitude);
        });
      } else {
        /* geolocation IS NOT available */
