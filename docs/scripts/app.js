@@ -458,9 +458,8 @@ function checkForSavedCities(){
 
 
         app.getForecast(initialWeatherForecast.key, initialWeatherForecast.label);
-        app.selectedCities = [
-          {key: initialWeatherForecast.key, label: initialWeatherForecast.label}
-        ];
+        app.selectedCities.push({key: initialWeatherForecast.key,
+          label: initialWeatherForecast.label});
         app.saveSelectedCities();
         console.log('second');
 
