@@ -397,7 +397,7 @@
           if (request.status === 200) {
             //console.log(request.response);
             var response = JSON.parse(request.response);
-            var results = response.query.results;
+            var results = response.query;
             console.log(results);
             results.key = key;
             results.label = label;
