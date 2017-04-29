@@ -393,6 +393,7 @@
       request.onreadystatechange = function() {
         if (request.readyState === XMLHttpRequest.DONE) {
           if (request.status === 200) {
+            console.log(request.response);
             var response = JSON.parse(request.response);
             var results = response.query.results;
             results.key = key;
