@@ -458,7 +458,7 @@ function checkForSavedCities(){
 
 
         app.getForecast(initialWeatherForecast.key, initialWeatherForecast.label);
-        if(app.selectedCities){
+        if(app.selectedCities.length === 0){
           app.selectedCities.push({key: initialWeatherForecast.key,
             label: initialWeatherForecast.label});
           app.saveSelectedCities();
