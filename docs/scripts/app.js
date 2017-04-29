@@ -382,35 +382,12 @@
      *   SimpleDB (https://gist.github.com/inexorabletash/c8069c042b734519680c)
      ************************************************************************/
 
-     function locationSuccess(pos) {
-       var woeid;
-       var query = 'select locality1 from geo.places where text="(' +
-            pos.coords.latitude + ',' + pos.coords.longitude + ')" limit 1';
-       var url = 'https://query.yahooapis.com/v1/public/yql?q=' +
-            encodeURIComponent(query) + '&amp;format=json';
-
-      var request = new XMLHttpRequest();
-      request.onreadystatechange = function() {
-        if (request.readyState === XMLHttpRequest.DONE) {
-          if (request.status === 200) {
-            woeid = request.query.results.place.locality1.woeid;
-            console.log(woeid);
-          }
-        } else {
-          // Return the initial weather forecast since no data is available.
-          app.updateForecastCard(initialWeatherForecast);
-        }
-      };
-
-       request.open('GET', url);
-       request.send();
-     }
 
      if ("geolocation" in navigator) {
        /* geolocation is available */
        navigator.geolocation.getCurrentPosition(function(position) {
-         locationSuccess(position);
-         //console.log(position.coords.latitude + ' ' + position.coords.longitude);
+         //locationSuccess(position);
+         console.log(position.coords.latitude + ' ' + position.coords.longitude);
        });
      } else {
        /* geolocation IS NOT available */
