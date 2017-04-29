@@ -386,8 +386,8 @@
        var woeid;
        var statement = 'select * from weather.forecast where woeid in ';
        statement += '(SELECT woeid FROM geo.places WHERE text="(';
-       statement += pos.coords.latitude + ', ' + pos.coords.longitude + ')");
-'
+       statement += pos.coords.latitude + ', ' + pos.coords.longitude + ')")';
+
        var url = 'https://query.yahooapis.com/v1/public/yql?format=json&q=' +
            statement;
 
