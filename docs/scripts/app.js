@@ -406,12 +406,8 @@
             app.getForecast(key, label);
 
             console.log('first');
-
             //app.updateForecastCard(results);
           }
-        } else {
-          // Return the initial weather forecast since no data is available.
-          app.updateForecastCard(initialWeatherForecast);
         }
       };
 
@@ -458,8 +454,13 @@
 
 
         app.getForecast(initialWeatherForecast.key, initialWeatherForecast.label);
-        app.selectedCities.push({key: initialWeatherForecast.key,
-          label: initialWeatherForecast.label});
+        if(!app.selectedCities){
+          app.selectedCities = [{key: initialWeatherForecast.key,
+            label: initialWeatherForecast.label }];
+        } else {
+          app.selectedCities.push({key: initialWeatherForecast.key,
+            label: initialWeatherForecast.label});
+        }
         app.saveSelectedCities();
         console.log('second');
 
