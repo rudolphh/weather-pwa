@@ -405,6 +405,7 @@
               {key: key, label: label}
             ];
             app.saveSelectedCities();
+            console.log('first');
             //app.updateForecastCard(results);
           }
         } else {
@@ -461,6 +462,8 @@
           {key: initialWeatherForecast.key, label: initialWeatherForecast.label}
         ];
         app.saveSelectedCities();
+        console.log('second');
+
       }
 
     }).catch(function (err) {
