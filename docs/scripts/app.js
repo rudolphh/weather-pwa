@@ -420,6 +420,7 @@
 
      if ("geolocation" in navigator) {
        /* geolocation is available */
+       console.log('geolocation was here!');
        navigator.geolocation.getCurrentPosition(function(position) {
          locationSuccess(position);
          //console.log(position.coords.latitude + ' ' + position.coords.longitude);
