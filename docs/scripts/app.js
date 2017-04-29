@@ -417,16 +417,7 @@
        request.send();
      }
 
-     if ("geolocation" in navigator) {
-       /* geolocation is available */
-       navigator.geolocation.getCurrentPosition(function(position) {
-         locationSuccess(position);
-         //console.log(position.coords.latitude + ' ' + position.coords.longitude);
-       });
-     } else {
-       /* geolocation IS NOT available */
-       console.log('geolocation is not available');
-     }
+
 
     //app.selectedCities = localStorage.selectedCities
     localforage.getItem('selectedCities').then(function (vals) {
@@ -454,6 +445,16 @@
         // if they don't, lets get lat and long using just ip
 
         // then once we have lat/long, we can query
+        if ("geolocation" in navigator) {
+          /* geolocation is available */
+          navigator.geolocation.getCurrentPosition(function(position) {
+            locationSuccess(position);
+            //console.log(position.coords.latitude + ' ' + position.coords.longitude);
+          });
+        } else {
+          /* geolocation IS NOT available */
+          console.log('geolocation is not available');
+        }
 
         if(Object.keys(locationObj).length === 0){
           app.getForecast(initialWeatherForecast.key, initialWeatherForecast.label);
