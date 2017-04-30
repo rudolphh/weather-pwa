@@ -401,8 +401,8 @@
             var label = results.place.locality1.content + ', ';
             label += results.place.admin1.code;
 
-            app.selectedCities.push({key: key, label: label});
-            app.saveSelectedCities();
+            //app.selectedCities.push({key: key, label: label});
+            //app.saveSelectedCities();
             app.getForecast(key, label);
 
             console.log('first');
