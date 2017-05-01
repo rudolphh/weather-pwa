@@ -399,7 +399,7 @@
             var results = response.query.results;
             var key = results.place.locality1.woeid;
             var label = results.place.locality1.content + ', ';
-            label += results.place.admin1.code;
+            label += results.place.admin1.code.slice(3);
 
             //app.selectedCities.push({key: key, label: label});
             //app.saveSelectedCities();
